@@ -14,6 +14,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity
@@ -61,6 +62,9 @@ public class Event {
     @ManyToMany (mappedBy = "staffingEvents")
     private List<User> staffs = new ArrayList<>();
 
+    @OneToMany (mappedBy = "event", cascade = CascadeType.ALL)
+    private List<TicketType> ticketTypes = new ArrayList<>();
+
     @CreatedDate
     @Column (name =  "created_at", updatable = false, nullable = false)
     private LocalDateTime createdAt;
@@ -69,4 +73,15 @@ public class Event {
     @Column (name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Event event = (Event) o;
+        return Objects.equals(id, event.id) && Objects.equals(name, event.name) && Objects.equals(start, event.start) && Objects.equals(end, event.end) && Objects.equals(venue, event.venue) && Objects.equals(sales_start, event.sales_start) && Objects.equals(sales_end, event.sales_end) && status == event.status && Objects.equals(createdAt, event.createdAt) && Objects.equals(updatedAt, event.updatedAt);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, start, end, venue, sales_start, sales_end, status, createdAt, updatedAt);
+    }
 }
