@@ -2,10 +2,7 @@ package com.truongpham.event_ticket_platform.mappers;
 
 import com.truongpham.event_ticket_platform.domains.Event;
 import com.truongpham.event_ticket_platform.domains.TicketType;
-import com.truongpham.event_ticket_platform.domains.dtos.CreateEventRequestDTO;
-import com.truongpham.event_ticket_platform.domains.dtos.CreateEventResponseDTO;
-import com.truongpham.event_ticket_platform.domains.dtos.CreateTicketTypeRequestDTO;
-import com.truongpham.event_ticket_platform.domains.dtos.CreateTicketTypeResponseDTO;
+import com.truongpham.event_ticket_platform.domains.dtos.*;
 import com.truongpham.event_ticket_platform.domains.requests.CreateEventRequest;
 import com.truongpham.event_ticket_platform.domains.requests.CreateTicketTypeRequest;
 import org.mapstruct.Mapper;
@@ -22,4 +19,11 @@ public interface EventMapper {
 
     CreateTicketTypeResponseDTO toDTO (TicketType ticketType);
 
+    GetListEventTicketTypeResponeDTO toListEventTicketTypeDTO (TicketType ticketType);
+
+    GetListEventResponseDTO toListEventDTO (Event event);
+
+    GetEventDetailResponseDTO toEventDetailDTO (Event event);
+
+    GetEventTicketTypeDetailsResponseDTO toEventTicketTypeDetailDTO (TicketType ticketType);
 }

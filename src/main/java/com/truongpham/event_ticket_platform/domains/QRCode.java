@@ -1,5 +1,6 @@
 package com.truongpham.event_ticket_platform.domains;
 
+import com.truongpham.event_ticket_platform.configs.JpaConfig;
 import com.truongpham.event_ticket_platform.enums.QRCodeStatusEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -8,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.xml.crypto.dsig.spec.XSLTTransformParameterSpec;
 import java.time.LocalDateTime;
@@ -17,6 +19,7 @@ import java.util.UUID;
 @Entity
 @Data
 @Table (name = "qr_codes")
+@EntityListeners(AuditingEntityListener.class)
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder

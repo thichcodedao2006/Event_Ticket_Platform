@@ -9,9 +9,12 @@ import com.truongpham.event_ticket_platform.repositories.EventRepository;
 import com.truongpham.event_ticket_platform.repositories.UserRepository;
 import com.truongpham.event_ticket_platform.services.EventService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -31,6 +34,7 @@ public class EventServiceImpl implements EventService {
                 ));
         // ta co request chua cac TicketTypeRequest
         // can chuyen Request nay sang TicketType
+        Event event = new Event();
         List<TicketType> ticketTypes = request.getTicketTypes().stream().map(
                 ticketTypeRequest ->
                 {
@@ -39,11 +43,12 @@ public class EventServiceImpl implements EventService {
                     ticketType.setDescription(ticketTypeRequest.getDescription());
                     ticketType.setPrice(ticketTypeRequest.getPrice());
                     ticketType.setTotalAvailable(ticketTypeRequest.getTotalAvailable());
+                    ticketType.setEvent(event);
                     return ticketType;
                 }
         ).toList();
 
-        Event event = new Event();
+
         event.setName(request.getName());
         event.setStart(request.getStart());
         event.setEnd(request.getEnd());
@@ -55,5 +60,15 @@ public class EventServiceImpl implements EventService {
         event.setTicketTypes(ticketTypes);
         return eventRepository.save(event);
 
+    }
+
+    @Override
+    public Page<Event> getListEvent(UUID organizerId, Pageable pageable) {
+        return eventRepository.findByOrganizerId(organizerId, pageable);
+    }
+
+    @Override
+    public Optional<Event> getEventForOrganizer(UUID eventId, UUID organizerId) {
+        return eventRepository.findByIdAndOrganizerId(eventId, organizerId);
     }
 }

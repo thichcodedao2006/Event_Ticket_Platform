@@ -1,5 +1,6 @@
 package com.truongpham.event_ticket_platform.domains;
 
+import com.truongpham.event_ticket_platform.configs.JpaConfig;
 import com.truongpham.event_ticket_platform.enums.TicketStatusEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -8,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -21,6 +23,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 @Table (name = "tickets")
+@EntityListeners(AuditingEntityListener.class)
 public class Ticket {
 
     @Id
