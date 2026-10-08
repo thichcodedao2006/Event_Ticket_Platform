@@ -4,6 +4,7 @@ import com.truongpham.event_ticket_platform.domains.Event;
 import com.truongpham.event_ticket_platform.domains.TicketType;
 import com.truongpham.event_ticket_platform.domains.User;
 import com.truongpham.event_ticket_platform.domains.requests.CreateEventRequest;
+import com.truongpham.event_ticket_platform.domains.requests.UpdateEventRequest;
 import com.truongpham.event_ticket_platform.exceptions.UserNotFoundException;
 import com.truongpham.event_ticket_platform.repositories.EventRepository;
 import com.truongpham.event_ticket_platform.repositories.UserRepository;
@@ -70,5 +71,10 @@ public class EventServiceImpl implements EventService {
     @Override
     public Optional<Event> getEventForOrganizer(UUID eventId, UUID organizerId) {
         return eventRepository.findByIdAndOrganizerId(eventId, organizerId);
+    }
+
+    @Override
+    public Event updateEventForOrganizer(UUID organizerId, UUID eventId, UpdateEventRequest request) {
+        return null;
     }
 }
